@@ -1,25 +1,16 @@
 ---
-title: "Min fina titel"
+title: "Niko14"
 ---
 Min me-sida i kursen ramverk1
 =========================
 
-Detta innehåll är skrivet i markdown och du hittar innehållet i filen `content/index.md`.
+[FIGURE src="image/me.jpg?w=150" class="figure right" caption="Bild på mig på östersjön i Finland"]
 
-[FIGURE src="image/me.jpg?w=400" class="right" caption="Bild på mig"]
+Jag heter Nicklas, född 95.
+Jag växte upp i en stad som heter Landskrona. Som ligger i östra delen av Skåne, mellan malmö och helsingborg.
+Där gick jag både grundskolan och sedan läste också Naturvetenskap på Allvar Gullstrands Gymnasiet.
+Men hur kom det då sig att jag hamnade på ett program som detta. Jo det ska jag berätta, jag valde naturvetenskap eftersom det gav den bredaste behörigheten för högskolan. Jag har alltid varit data och teknik intresserad men under andra året i gymnasiet så fick jag mer intresse för just programmering och dylikt. Och eftersom under andra året så var det lite försent för att byta program till teknik, så jag bestämde mig att studera lite programeing på fritidne istället. Efter det så sökte jag in till BTH och här är jag idag.
 
-Detta är min me-sida i kursen. Denna sidan innehåller en presentation av mig själv. Underhåll denna sidan under hela kursen och uppdatera den efter hand och behov.
+Mina intressen utanför skolan är at spela olika dataspel. Bland annat att spela MMOer som t.ex. World Of Warcraft, MOBAs som t.ex. Heros Of The Storm (HOTS) och League OF Legends (LOL) och Team Fortress 2 (TF2). Samt en rad olika single player spel, bland annat Euro Truck Simulator, Hitman, Rythm spel som Clone Hero eller Phase shift.
 
-Så, en presentation en bra början. Skriv några ord om dig själv. Jag börjar.
-
-Mitt namn är Mikael Roos. Född och uppvuxen i Bankeryd, Småland, strax utanför Jönköping, i ett villaområde som byggdes upp samtidigt som vi flyttade in där. Jag gillade landhockey och har spelat bandy och hockey samt gått bowlinggymnasiet i Nässjö. Jag har varit städare, diskare, kallskänka, servitör och kock. På ett bananskal landade jag i Ronneby när jag började högskolan 1990 där och nu är jag kvar med fru, barn och så vidare.
-
-Programmering har alltid intresserat mig sedan 13-årsåldern och min första dator var en Spectravideo 328 med bandspelare.
-
-Om jag skall nämna någon hobby, förutom webbprogrammering, så får det bli att bära sten på sommarstugetomten, och det finns sten så det räcker och blir över.
-
-Till och från får jag för mig att börja på lite hobbies, ett år satsade jag på pokerspel, ett annat år var det geocaching och sedan turfing. Nu ligger jag lågt med hobbies, men något kanske dyker upp...?
-
-Vi syns och hörs i forum och chatt!
-
-/Mikael
+Övrigt är min musiksmak, ja alla genere förutom Rap. I film och TV väg älskar jag SciFi och Action filmer, där bland annat inkluderat Dr. WHo och Star Trek (har dock bara sett de tre reboot filmerna och inte TV-serien).
