@@ -56,3 +56,9 @@ a.link {
     max-width: 90%;
     margin: 1rem auto;
 }
+
+.inner-wrap-header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
