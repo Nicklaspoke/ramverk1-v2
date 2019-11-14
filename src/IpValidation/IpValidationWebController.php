@@ -27,24 +27,13 @@ class IpValidationWebController implements ContainerInjectableInterface
      */
     private $title = "Ip Validation";
 
-    /**
-     *Initialize method that sets up variables and such
-     * Before the other methods use them
-     *
-     * @return void
-     */
-    public function initialize() : void
-    {
-
-    }
-
     public function debugAction() : string
     {
         // Deal with the action and return a response.
         return "Debug Of IpValidationWebController";
     }
 
-    public function indexAction()
+    public function indexActionGet()
     {
         $page = $this->di->get("page");
 
@@ -53,7 +42,35 @@ class IpValidationWebController implements ContainerInjectableInterface
         return $page->render([
             "title" => $this->title
         ]);
+    }
 
-        return "Index route";
+    public function indexActionPost() {
+        $ip = $this->di->get("request")->getPost("ipInput");
+
+        $validation = filter_var($ip, FILTER_VALIDATE_IP);
+
+        $message = $ip . " ";
+        if (!$validation) {
+            $message .= "is not a valid ipv4 or ipv6 address";
+        } else {
+            $domain = gethostbyaddr($ip);
+            $message .= "is a valid ipv4 or ipv6 address";
+
+            if ($domain != $ip) {
+                $message .= " and has the hostname: " . $domain;
+            }
+        }
+        $data = [
+            "message" => $message,
+            "title" => $this->title
+        ];
+
+        $page = $this->di->get("page");
+
+        $page->add("ip-validation/index", $data);
+
+        return $page->render([
+            "title" => $this->title
+        ]);
     }
 }
