@@ -62,3 +62,11 @@ a.link {
     top: 0;
     width: 100%;
 }
+
+.box-message {
+    margin: 1rem;
+    padding: 0.5rem;
+    border: 3px solid black;
+    background-color: #666;
+    width: 30%;
+}

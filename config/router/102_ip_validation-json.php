@@ -6,8 +6,8 @@ return [
     "routes" => [
         [
             "info" => "controller for ip validation",
-            "mount" => "validate-ip",
-            "handler" => "\Niko\IpValidation\IpValidationWebController",
+            "mount" => "validate-ip-json",
+            "handler" => "\Niko\IpValidation\IpValidationJSONController",
         ]
     ]
 ];
