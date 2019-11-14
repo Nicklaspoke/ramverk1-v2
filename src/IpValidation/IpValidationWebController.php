@@ -46,11 +46,13 @@ class IpValidationWebController implements ContainerInjectableInterface
 
     public function indexAction()
     {
-        $this->di->get->add("ip-validation/index");
+        $page = $this->di->get("page");
 
-        // return $this->app->page->render([
-        //     "title" => $this->title
-        // ]);
+        $page->add("ip-validation/index");
+
+        return $page->render([
+            "title" => $this->title
+        ]);
 
         return "Index route";
     }

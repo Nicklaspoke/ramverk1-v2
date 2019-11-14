@@ -55,7 +55,7 @@ return [
         ],
         [
             "text" => "Ip Validation",
-            "url" => "ip",
+            "url" => "validate-ip",
             "title" => "Validate Ip Addresses",
         ],
     ],
