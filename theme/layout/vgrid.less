@@ -1,0 +1,290 @@
+/**
+*  Layout using vertical-grid layout
+*/
+
+/**
+ * General layout
+ */
+
+/**
+*   Grid Specific Styling
+*/
+.row {
+    #desinax-vgrid.row();
+    margin-bottom: 12px;
+}
+
+.vgrid .inner-wrap {
+    @gridImage: "../img/grid_24x30x10-nomargin.png";
+
+    #desinax-vgrid.showGrid(@gridImage);
+
+    &.inner-wrap-header {
+        #desinax-vgrid.showGrid(@gridImage);
+    }
+}
+
+/**
+*   Misc Styling
+*/
+.inner-wrap.inner-wrap-header,
+.inner-wrap-footer {
+    #desinax-vgrid.grid(99%);
+}
+
+.site-logo {
+    display: none;
+}
+
+.right {
+    // float: right;
+}
+
+.outer-wrap {
+    background-color: #8f9197;
+}
+
+.inner-wrap {
+    #desinax-vgrid.grid(80%);
+    background-color: #bfc5d8;
+}
+
+.region-flash {
+    #desinax-vgrid.column(@columns);
+}
+
+.region-breadcrumb {
+    #desinax-vgrid.column(@columns);
+}
+
+.region-flash-message {
+    #desinax-vgrid.column(@columns);
+}
+
+.flashmessage {
+    border: 0.1em solid #333;
+}
+
+/**
+*   Header Styling
+*/
+.outer-wrap.outer-wrap-header {
+    background-color: #bfc5d8;
+}
+
+.region-header-col-1,
+.region-header-col-3 {
+    #desinax-vgrid.column(5);
+}
+
+.region-header-col-2 {
+    #desinax-vgrid.column(14);
+    text-align: center;
+}
+
+
+/**
+*   Navbar Styling
+*/
+.my-navbar {
+    list-style: none;
+}
+
+.my-navbar li:hover {
+    background-color: #8f9197;
+    transition-duration: 0.4s;
+}
+
+.my-navbar a {
+    text-decoration: none;
+}
+
+.my-navbar a:hover {
+    text-decoration: underline;
+}
+
+/**
+*   Footer Styling
+*/
+.footer-column {
+    #desinax-vgrid.column(@columns / 3);
+}
+
+.site-footer {
+    #desinax-vgrid.column(@columns);
+}
+
+.footer-column-x a {
+    text-decoration: none;
+}
+
+.footer-column-x a:hover {
+    text-decoration: underline;
+}
+
+.footer-column-1,
+.footer-column-2,
+.footer-column-3 {
+    min-height: 10em;
+    text-align: center;
+}
+
+.site-footer {
+    border-top: 0.1em solid black;
+    text-align: center;
+}
+
+.site-footer a {
+    text-decoration: none;
+}
+
+/**
+*   Styling For Side-Bars
+*/
+.region-sidebar-right,
+.region-sidebar-left {
+    #desinax-vgrid.column(@columns * 1/4);
+}
+
+.region-sidebar-right {
+    #desinax-vgrid.push(1);
+}
+
+.region-sidebar-left.has-sidebar-right,
+.region-sidebar-right.has-sidebar-left {
+    #desinax-vgrid.column(@columns * 1/4 - 2);
+}
+
+.region-main {
+    #desinax-vgrid.column(@columns * 3/4);
+    #desinax-vgrid.push(3);
+
+    &.has-sidebar {
+        #desinax-vgrid.push(0);
+    }
+
+    &.has-sidebar-right {
+        #desinax-vgrid.column(@columns * 3/4 - 1);
+    }
+    &.has-sidebar-left.has-sidebar-right {
+        #desinax-vgrid.column(@columns * 3/4 - 3);
+        #desinax-vgrid.push(0);
+    }
+}
+
+/**
+*   Responsiveness for 1, 2, 3 column layout
+*/
+@media screen and (max-width: 1050px) {
+    .region-main {
+        &.has-sidebar-left.has-sidebar-right {
+            #desinax-vgrid.column(@columns);
+        }
+    }
+
+    .region-sidebar-left.has-sidebar-right,
+    .region-sidebar-right.has-sidebar-left {
+        #desinax-vgrid.column(@columns);
+    }
+
+    .footer-column {
+        #desinax-vgrid.column(@columns);
+    }
+}
+
+
+@media screen and (max-width: 1000px) {
+    .region-main {
+        #desinax-vgrid.column(@columns);
+    }
+
+    .region-sidebar-left {
+        #desinax-vgrid.column(@columns);
+    }
+}
+
+@media screen and (max-width: 900px) {
+    .region-main {
+        &.has-sidebar-right {
+            #desinax-vgrid.column(@columns)
+        }
+
+    .region-sidebar-right {
+        #desinax-vgrid.column(@columns);
+        #desinax-vgrid.push(0);
+    }
+    }
+}
+/**
+*   Styling for toc and buttons on report page
+*/
+.next-previous {
+    #desinax-vgrid.column(@columns);
+    margin-top: @magicNumber;
+    margin-bottom: @magicNumber;
+}
+
+.next-previous .next {
+    float: right;
+    padding: 1em;
+}
+
+.next-previous .previous {
+    float: left;
+    padding: 1em;
+}
+
+.next-previous .next a,
+.next-previous .previous a {
+    text-decoration: none;
+}
+
+.next-previous .next:hover,
+.next-previous .previous:hover {
+    background-color: #8f9197;
+    transition-duration: 0.4s;
+    text-decoration: underline;
+}
+
+.toc {
+    list-style: none;
+}
+
+.toc li {
+    padding: 0.2em;
+
+    &.selected {
+        background-color: gold;
+    }
+}
+
+.toc li:hover {
+    background-color: #8f9197;
+    transition-duration: 0.4s;
+    text-decoration: underline;
+}
+
+.toc li a {
+    text-decoration: none;
+}
+
+.breadcrumb-list {
+    margin-bottom: @magicNumber;
+}
+
+.breadcrumb-list li {
+    padding: 0.2em;
+}
+.breadcrumb-list li a {
+    text-decoration: none;
+}
+
+.breadcrumb-list li a:hover {
+    text-decoration: underline;
+}
+
+.breadcrumb-list li a:hover {
+    background-color: #8f9197;
+    transition-duration: 0.4s;
+    text-decoration: underline;
+}
