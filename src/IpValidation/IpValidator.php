@@ -7,7 +7,7 @@ namespace Niko\IpValidation;
  * returns if ip is valid, which domain/hostname if it has one
  * geolocation if possible
  */
-class Ipvalidator
+class IpValidator
 {
     /**
      * Takes a ip and validates it.
@@ -19,12 +19,12 @@ class Ipvalidator
 
         $returnData["ip"] = $ip;
 
-        if (filter_var($ip, FILTER_FLAG_IPV4)) {
+        if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4) != false) {
             $returnData["valid"] = true;
-            $returnData["ip_type"] = "ipv4";
-        } elseif (filter_var($ip, FILTER_FLAG_IPV6)) {
+            $returnData["ip_version"] = "ipv4";
+        } elseif (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6) != false) {
             $returnData["valid"] = true;
-            $returnData["ip_type"] = "ipv6";
+            $returnData["ip_version"] = "ipv6";
         } else {
             $returnData["valid"] = false;
         }
@@ -32,5 +32,11 @@ class Ipvalidator
         if ($returnData["valid"]) {
             $returnData["hostname"] = gethostbyaddr($ip);
         }
+
+        return $returnData;
+    }
+
+    public function getGoeLocation($ip) {
+
     }
 }
