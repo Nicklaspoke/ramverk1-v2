@@ -64,7 +64,8 @@ a.link {
 }
 
 .box-message {
-    margin: 1rem;
+    width: 80%;
+    margin: 1rem auto;
     padding: 0.5rem;
     border: 3px solid black;
     background-color: #666;

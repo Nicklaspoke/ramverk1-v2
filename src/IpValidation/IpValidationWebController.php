@@ -5,6 +5,7 @@ namespace Niko\IpValidation;
 use Anax\Commons\ContainerInjectableInterface;
 use Anax\Commons\ContainerInjectableTrait;
 
+
 // use Anax\Route\Exception\ForbiddenException;
 // use Anax\Route\Exception\NotFoundException;
 // use Anax\Route\Exception\InternalErrorException;
@@ -27,17 +28,19 @@ class IpValidationWebController implements ContainerInjectableInterface
      */
     private $title = "Ip Validation";
 
-    public function debugAction() : string
+    public function initialize() : void
     {
-        // Deal with the action and return a response.
-        return "Debug Of IpValidationWebController";
+        //Use to initialise member variables.
+        $this->ipValidator = new IpValidator();
     }
 
     public function indexActionGet()
     {
+        $data = [];
+        $data["userIp"] = $this->di->get("request")->getServer("REMOTE_ADDR");
         $page = $this->di->get("page");
 
-        $page->add("ip-validation/index");
+        $page->add("ip-validation/index", $data);
 
         return $page->render([
             "title" => $this->title
@@ -45,25 +48,22 @@ class IpValidationWebController implements ContainerInjectableInterface
     }
 
     public function indexActionPost() {
+        $data = [];
+        $data["title"] = $this->title;
         $ip = $this->di->get("request")->getPost("ipInput");
 
-        $validation = filter_var($ip, FILTER_VALIDATE_IP);
+        $kmom = $this->di->get("request")->getPost("kmom");
 
-        $message = $ip . " ";
-        if (!$validation) {
-            $message .= "is not a valid ipv4 or ipv6 address";
-        } else {
-            $domain = gethostbyaddr($ip);
-            $message .= "is a valid ipv4 or ipv6 address";
 
-            if ($domain != $ip) {
-                $message .= " and has the hostname: " . $domain;
-            }
+        switch ($kmom) {
+            case "kmom01":
+                $data["message"] = $this->kmom01($ip);
+                break;
+
+            case "kmom02":
+                $data["message"] = $this->kmom02($ip);
+                break;
         }
-        $data = [
-            "message" => $message,
-            "title" => $this->title
-        ];
 
         $page = $this->di->get("page");
 
@@ -72,5 +72,38 @@ class IpValidationWebController implements ContainerInjectableInterface
         return $page->render([
             "title" => $this->title
         ]);
+    }
+
+    private function kmom01($ip)
+    {
+        $returnData = $this->ipValidator->validateIp($ip);
+
+        $message = $ip . " ";
+        if ($returnData["valid"]) {
+            $message .= "is a valid: " . $returnData["ip_version"] . "<br>";
+            $message .= " And has the the hostname: " . $returnData["hostname"];
+        } else {
+            $message .= "is not a valid " . " ip adress</p>";
+        }
+
+        return $message;
+    }
+
+    private function kmom02($ip)
+    {
+        $returnData = $this->ipValidator->validateIp($ip);
+
+        if ($returnData["valid"]) {
+            $geoInfo = $this->ipValidator->getGoeLocation($ip);
+            $message = "IP: " . $ip . "<br>";
+            $message .= "Type: " . $geoInfo["type"] . "<br>";
+            $message .= "Country: " . $geoInfo["country_name"] . "<br>";
+            $message .= "latitude: " . $geoInfo["latitude"] . "<br>";
+            $message .= "longitude: " . $geoInfo["longitude"] . "<br>";
+        } else {
+            $message .= "is not a valid " . " ip adress</p>";
+        }
+
+        return $message;
     }
 }
