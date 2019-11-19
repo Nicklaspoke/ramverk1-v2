@@ -37,6 +37,11 @@ class IpValidator
     }
 
     public function getGoeLocation($ip) {
+        include("apiKey.php");
+        $url = $baseUrl . $ip . "?access_key=" . $apiKey;
+        $res = file_get_contents($url);
+        $res = json_decode($res, true);
 
+        return $res;
     }
 }
