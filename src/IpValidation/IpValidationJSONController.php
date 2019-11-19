@@ -27,10 +27,18 @@ class IpValidationJSONController implements ContainerInjectableInterface
      */
     private $title = "Ip Validation with JSON";
 
+    public function initialize() : void
+    {
+        //Use to initialise member variables.
+        $this->ipValidator = new IpValidator();
+    }
+
     public function indexActionGet()
     {
+        $data = [];
+        $data["userIp"] = $this->di->get("request")->getServer("REMOTE_ADDR");
         $page = $this->di->get("page");
-        $page->add("ip-validation/index-json");
+        $page->add("ip-validation/index-json", $data);
 
         return $page->render([
             "title" => $this->title
@@ -40,21 +48,25 @@ class IpValidationJSONController implements ContainerInjectableInterface
     public function jsonActionGet() : array
     {
         $ip = $this->di->get("request")->getGet("ip");
+        $kmom = $this->di->get("request")->getGet("kmom");
 
-        $validation = filter_var($ip, FILTER_VALIDATE_IP);
-
-        $valid = $validation == false ? false : true;
-
-        $domain = !$validation ? "" : gethostbyaddr($ip);
-
-        $hostname = $domain == $ip ? "" : $domain;
-
-        $json = [
-            "ip" => $ip,
-            "valid" => $valid,
-            "hostname" => $hostname
-        ];
-
+        switch ($kmom) {
+            case "kmom01":
+                $json = $this->ipValidator->validateIp($ip);
+                break;
+            case "kmom02":
+                $json = $this->kmom02($ip);
+        }
         return [$json];
+    }
+
+    private function kmom02($ip) {
+        $data = $this->ipValidator->validateIp($ip);
+
+        if ($data["valid"]) {
+            $data["geoinfo"] = $this->ipValidator->getGeoLocation($ip);
+        }
+
+        return $data;
     }
 }

@@ -94,7 +94,7 @@ class IpValidationWebController implements ContainerInjectableInterface
         $returnData = $this->ipValidator->validateIp($ip);
 
         if ($returnData["valid"]) {
-            $geoInfo = $this->ipValidator->getGoeLocation($ip);
+            $geoInfo = $this->ipValidator->getGeoLocation($ip);
             $message = "IP: " . $ip . "<br>";
             $message .= "Type: " . $geoInfo["type"] . "<br>";
             $message .= "Country: " . $geoInfo["country_name"] . "<br>";
