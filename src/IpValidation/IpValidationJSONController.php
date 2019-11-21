@@ -56,6 +56,7 @@ class IpValidationJSONController implements ContainerInjectableInterface
                 break;
             case "kmom02":
                 $json = $this->kmom02($ip);
+                break;
         }
         return [$json];
     }
