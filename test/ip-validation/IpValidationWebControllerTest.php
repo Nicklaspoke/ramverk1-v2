@@ -33,27 +33,28 @@ class IpValidationWebControllerTest extends TestCase
         $this->request = $di->get("request");
     }
 
-    // public function testIndexActionGet()
-    // {
-    //     $res = $this->controller->indexActionGet();
+    public function testIndexActionGet()
+    {
+        $res = $this->controller->indexActionGet();
 
-    //     // Check the responce object
-    //     $this->assertIsObject($res);
-    //     $this->assertInstanceOf("\Anax\Response\Response", $res);
-    //     $this->assertInstanceOf("\Anax\Response\ResponseUtility", $res);
+        // Check the responce object
+        $this->assertIsObject($res);
+        $this->assertInstanceOf("\Anax\Response\Response", $res);
+        $this->assertInstanceOf("\Anax\Response\ResponseUtility", $res);
 
-    //     // $this->assertContains("Ipv4 or Ipv6 address to validate:", $body);
-    // }
+        // $this->assertContains("Ipv4 or Ipv6 address to validate:", $body);
+    }
 
     /**
      * Test with an valid ip address
      */
     public function testIndexActionPostValid()
     {
+        $_POST["ipInput"] = "8.8.8.8";
         // $request = $this->di->get("request");
-        $this->request->setPost("ipInput", "8.8.8.8");
+        // $this->request->setPost("ipInput", "8.8.8.8");
 
-        $res = $controller->IndexActionPost();
+        $res = $this->controller->IndexActionPost();
 
         // Check the responce object
         $this->assertIsObject($res);
@@ -64,8 +65,9 @@ class IpValidationWebControllerTest extends TestCase
 
     public function testIndexActionPostInvalid()
     {
-        // $request = $this->di->get("request");
-        $this->request->setPost("ipInput", "300.8.8.8");
+        $_POST["ipInput"] = "300.8.8.8";
+        // $request = $this->di->get("request");0
+        // $this->request->setPost("ipInput", "300.8.8.8");
 
         $res = $this->controller->IndexActionPost();
 
