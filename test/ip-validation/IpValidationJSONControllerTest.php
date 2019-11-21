@@ -13,56 +13,80 @@ class IpValidationJSONControllerTest extends TestCase
 
     public function setup()
     {
-        // Setup di
-        $di = new DIFactoryConfig();
-        $di->loadServices(ANAX_INSTALL_PATH . "/config/di");
+        global $di;
 
-         // Use a different cache dir for unit test
-        $di->get("cache")->setPath(ANAX_INSTALL_PATH . "/test/cache");
+        // Setup di
+        $this->di = new DIFactoryConfig();
+        $this->di->loadServices(ANAX_INSTALL_PATH . "/config/di");
+
+        // Use a different cache dir for unit test
+        $this->di->get("cache")->setPath(ANAX_INSTALL_PATH . "/test/cache");
+
+        // View helpers uses the global $di so it needs its value
+        $di = $this->di;
 
         // Setup the controller
         $this->controller = new IpValidationJSONController();
-        $this->controller->setDI($di);
+        $this->controller->setDI($this->di);
+        $this->controller->initialize();
     }
 
     /**
      * Test the route "index".
      */
-    public function testIndexAction()
-    {
-        $res = $this->controller->indexActionGet();
+    // public function testIndexAction()
+    // {
+    //     $res = $this->controller->indexActionGet();
 
-        // Check the responce object
-        $this->assertIsObject($res);
-        $this->assertInstanceOf("\Anax\Response\Response", $res);
-        $this->assertInstanceOf("\Anax\Response\ResponseUtility", $res);
-    }
+    //     // Check the responce object
+    //     $this->assertIsObject($res);
+    //     $this->assertInstanceOf("\Anax\Response\Response", $res);
+    //     $this->assertInstanceOf("\Anax\Response\ResponseUtility", $res);
+    // }
 
     public function testjsonActionGetValid()
     {
         $_GET["ip"] = "8.8.8.8";
+        $_GET["kmom"] = "kmom01";
 
         $res = $this->controller->jsonActionGet();
 
         $this->assertInternalType("array", $res);
 
         $json = $res[0];
-        $this->assertContains("8.8.8.8", $json["ip"]);
-        $this->assertContains(true, $json["valid"]);
-        $this->assertContains("dns.google", $json["hostname"]);
+        $this->assertEquals("8.8.8.8", $json["ip"]);
+        $this->assertEquals(true, $json["valid"]);
+        $this->assertEquals("dns.google", $json["hostname"]);
     }
 
     public function testjsonActionGetInvalid()
     {
         $_GET["ip"] = "300.8.8.8";
+        $_GET["kmom"] = "kmom01";
 
         $res = $this->controller->jsonActionGet();
 
         $this->assertInternalType("array", $res);
 
         $json = $res[0];
-        $this->assertContains("300.8.8.8", $json["ip"]);
-        $this->assertContains(false, $json["valid"]);
-        $this->assertContains("", $json["hostname"]);
+        $this->assertEquals("300.8.8.8", $json["ip"]);
+        $this->assertEquals(false, $json["valid"]);
+    }
+
+    public function testjsonActionGetGeoInfo()
+    {
+        $_GET["ip"] = "8.8.8.8";
+        $_GET["kmom"] = "kmom02";
+
+        $res = $this->controller->jsonActionGet();
+
+        $this->assertInternalType("array", $res);
+
+        $json = $res[0];
+        $geoData = $json["geoinfo"];
+        $this->assertEquals("8.8.8.8", $geoData["ip"]);
+        $this->assertEquals("United States", $geoData["country_name"]);
+        $this->assertEquals("37.419158935546875", $geoData["latitude"]);
+        $this->assertEquals("-122.07540893554688", $geoData["longitude"]);
     }
 }
