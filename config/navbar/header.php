@@ -88,5 +88,10 @@ return [
             "url" => "validate-ip-json",
             "title" => "Validate Ip Addresses With JSON",
         ],
+        [
+            "text" => "Weather Service",
+            "url" => "weather",
+            "title" => "Weather Location Service",
+        ],
     ],
 ];
