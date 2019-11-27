@@ -5,3 +5,5 @@ memory::
 composer.lock
 
 src/IpValidation/apiKey.php
+
+config/di/apiInfo.php
