@@ -65,7 +65,7 @@ class IpValidationJSONController implements ContainerInjectableInterface
         $data = $this->ipValidator->validateIp($ip);
 
         if ($data["valid"]) {
-            $data["geoinfo"] = $this->ipValidator->getGeoLocation($ip);
+            $data["geoinfo"] = $this->ipValidator->getGeoLocation($ip, $this->di->get("apiInfo")->getApiKey("ipstack"));
         }
 
         return $data;
