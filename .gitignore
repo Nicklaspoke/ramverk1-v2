@@ -6,4 +6,4 @@ composer.lock
 
 src/IpValidation/apiKey.php
 
-config/di/apiInfo.php
+config/apiKeys.php
