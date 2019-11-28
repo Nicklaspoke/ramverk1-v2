@@ -39,9 +39,11 @@ class WeatherService
 
         if ($option === "forecast") {
             $data = $this->getForecast($geodata, $apiInfo->getApiKey("darkSky"));
-            $data = $this->formatData($data);
+            $data = $this->formatForecastData($data);
         } elseif ($option === "previous") {
-
+            $data = $this->getPrevipusWeather($geodata, $apiInfo->getApiKey("darkSky"));
+            $data = $this->formatHistoricalData($data);
+            // var_dump($data);
         }
 
 
@@ -52,7 +54,7 @@ class WeatherService
     {
         $url = $apiInfo["baseUrl"] . $apiInfo["apiKey"] . "/";
         $url .= $geodata["lat"] . "," . $geodata["lon"];
-        $url .= "?exclude=hourly,minutely,alerts,flags&units=si";
+        $url .= "?exclude=currently,hourly,minutely,alerts,flags&units=si";
         echo $url;
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -65,12 +67,49 @@ class WeatherService
         return $data;
     }
 
-    public function getPrevipusWeather($geodata) : array
+    public function getPrevipusWeather($geodata, $apiInfo) : array
     {
+        $url = $apiInfo["baseUrl"] . $apiInfo["apiKey"] . "/";
+        $url .= $geodata["lat"] . "," . $geodata["lon"];
+        $urlOptions = "?exclude=currently,hourly,minutely,alerts,flags&units=si";
 
+        $options = [
+            CURLOPT_RETURNTRANSFER => true
+        ];
+
+        $mh = curl_multi_init();
+        $chAll = [];
+
+        for ($i = 1; $i <= 30; $i++) {
+            $time = "-" . $i . "days";
+            $sendUrl = $url . "," . strtotime($time) . $urlOptions;
+            $ch = curl_init($sendUrl);
+            curl_setopt_array($ch, $options);
+            curl_multi_add_handle($mh, $ch);
+            $chAll[] = $ch;
+        }
+
+        $running = null;
+        do {
+            curl_multi_exec($mh, $running);
+        } while ($running);
+
+        foreach ($chAll as $ch) {
+            curl_multi_remove_handle($mh, $ch);
+        }
+
+        curl_multi_close($mh);
+
+        $responce = [];
+        foreach ($chAll as $ch) {
+            $data = curl_multi_getcontent($ch);
+            $responce[] = json_decode($data, true);
+        }
+
+        return $responce;
     }
 
-    private function formatData($weatherData) : array
+    private function formatForecastData($weatherData) : array
     {
         $dayData = $weatherData["daily"];
         $days = $dayData["data"];
@@ -89,6 +128,32 @@ class WeatherService
                 "humidity" => $daysData["humidity"],
                 "pressure" => $daysData["pressure"],
                 "windSpeed" => $daysData["windSpeed"],
+            ];
+        }
+
+        return $data;
+    }
+
+    private function formatHistoricalData($weatherData) {
+        $data = [];
+
+        foreach ($weatherData as $daysData) {
+            $dayData = $daysData["daily"];
+            $dayData = $dayData["data"];
+            $dayData = $dayData[0];
+
+            $time = date("d/m", $dayData["time"]);
+            $sunrise = date("H:i:s", $dayData["sunriseTime"]);
+            $sundown = date("H:i:s", $dayData["sunsetTime"]);
+            $data[$time] = [
+                "summary" => $dayData["summary"],
+                "sunrise" => $sunrise,
+                "sunset" => $sundown,
+                "tempetureHigh" => $dayData["temperatureHigh"],
+                "tempetureLow" => $dayData["temperatureLow"],
+                "humidity" => $dayData["humidity"],
+                "pressure" => $dayData["pressure"],
+                "windSpeed" => $dayData["windSpeed"],
             ];
         }
 
