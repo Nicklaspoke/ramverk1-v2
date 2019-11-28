@@ -2,7 +2,7 @@
 
 namespace Niko\IpValidation;
 
-
+use Anax\DI\DIFactoryConfig;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -15,6 +15,18 @@ class ipvalidatorTest extends TestCase
      */
     public function setup()
     {
+        global $di;
+
+        // Setup di
+        $this->di = new DIFactoryConfig();
+        $this->di->loadServices(ANAX_INSTALL_PATH . "/config/di");
+
+        // Use a different cache dir for unit test
+        $this->di->get("cache")->setPath(ANAX_INSTALL_PATH . "/test/cache");
+
+        // View helpers uses the global $di so it needs its value
+        $di = $this->di;
+
         $this->validator = new IpValidator;
     }
 
@@ -83,7 +95,8 @@ class ipvalidatorTest extends TestCase
      */
     public function testGeoLocation()
     {
-        $res = $this->validator->getGeoLocation("8.8.8.8");
+        $apiInfo = $this->di->get("apiInfo")->getAPiKey("ipstack");
+        $res = $this->validator->getGeoLocation("8.8.8.8", $apiInfo);
 
         $this->assertEquals("8.8.8.8", $res["ip"]);
         $this->assertEquals("United States", $res["country_name"]);
