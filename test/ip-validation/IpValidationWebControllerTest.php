@@ -41,8 +41,6 @@ class IpValidationWebControllerTest extends TestCase
         $this->assertIsObject($res);
         $this->assertInstanceOf("\Anax\Response\Response", $res);
         $this->assertInstanceOf("\Anax\Response\ResponseUtility", $res);
-
-        // $this->assertContains("Ipv4 or Ipv6 address to validate:", $body);
     }
 
     /**
@@ -60,7 +58,6 @@ class IpValidationWebControllerTest extends TestCase
         $this->assertIsObject($res);
         $this->assertInstanceOf("\Anax\Response\Response", $res);
         $this->assertInstanceOf("\Anax\Response\ResponseUtility", $res);
-
     }
 
     public function testIndexActionPostInvalid()
@@ -75,6 +72,5 @@ class IpValidationWebControllerTest extends TestCase
         $this->assertIsObject($res);
         $this->assertInstanceOf("\Anax\Response\Response", $res);
         $this->assertInstanceOf("\Anax\Response\ResponseUtility", $res);
-
     }
 }

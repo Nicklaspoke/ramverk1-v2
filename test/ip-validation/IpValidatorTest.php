@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * Testing clas for testing the ipvalidator class
  */
-class ipvalidatorTest extends TestCase
+class IpvalidatorTest extends TestCase
 {
     /**
      * Setup for the testcases
@@ -27,7 +27,7 @@ class ipvalidatorTest extends TestCase
         // View helpers uses the global $di so it needs its value
         $di = $this->di;
 
-        $this->validator = new IpValidator;
+        $this->validator = new IpValidator();
     }
 
     public function validIpProvider()
@@ -102,6 +102,5 @@ class ipvalidatorTest extends TestCase
         $this->assertEquals("United States", $res["country_name"]);
         $this->assertEquals("37.419158935546875", $res["latitude"]);
         $this->assertEquals("-122.07540893554688", $res["longitude"]);
-
     }
 }

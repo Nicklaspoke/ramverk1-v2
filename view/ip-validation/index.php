@@ -31,8 +31,8 @@
 
 <?php
 if (!empty($message)) {
-echo "<div class='box-message'>";
+    echo "<div class='box-message'>";
         echo $message;
-echo "</div>";
+    echo "</div>";
 }
 ?>

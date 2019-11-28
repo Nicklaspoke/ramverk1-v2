@@ -61,7 +61,8 @@ class IpValidationJSONController implements ContainerInjectableInterface
         return [$json];
     }
 
-    private function kmom02($ip) {
+    private function kmom02($ip)
+    {
         $data = $this->ipValidator->validateIp($ip);
 
         if ($data["valid"]) {

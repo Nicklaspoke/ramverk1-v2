@@ -65,7 +65,7 @@ class WeatherService
         $url = $apiInfo["baseUrl"] . $apiInfo["apiKey"] . "/";
         $url .= $geodata["lat"] . "," . $geodata["lon"];
         $url .= "?exclude=currently,hourly,minutely,alerts,flags&units=si";
-        echo $url;
+
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_URL, $url);
@@ -144,7 +144,8 @@ class WeatherService
         return $data;
     }
 
-    private function formatHistoricalData($weatherData) {
+    private function formatHistoricalData($weatherData)
+    {
         $data = [];
 
         foreach ($weatherData as $daysData) {
@@ -170,7 +171,8 @@ class WeatherService
         return $data;
     }
 
-    public function getMapData($geodata) {
+    public function getMapData($geodata)
+    {
         $possistions = [];
         $possistions["bottomRight"] = strval(floatval($geodata["lon"]) - 0.5) . "%2c" . strval(floatval($geodata["lat"]) - 0.5);
         $possistions["topLeft"] = strval(floatval($geodata["lon"]) + 0.5) . "%2c" . strval(floatval($geodata["lat"]) + 0.5);

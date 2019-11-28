@@ -5,7 +5,6 @@ namespace Niko\IpValidation;
 use Anax\Commons\ContainerInjectableInterface;
 use Anax\Commons\ContainerInjectableTrait;
 
-
 // use Anax\Route\Exception\ForbiddenException;
 // use Anax\Route\Exception\NotFoundException;
 // use Anax\Route\Exception\InternalErrorException;
@@ -47,7 +46,8 @@ class IpValidationWebController implements ContainerInjectableInterface
         ]);
     }
 
-    public function indexActionPost() {
+    public function indexActionPost()
+    {
         $data = [];
         $data["title"] = $this->title;
         $ip = $this->di->get("request")->getPost("ipInput");

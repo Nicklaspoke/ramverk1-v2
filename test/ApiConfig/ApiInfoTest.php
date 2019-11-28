@@ -2,10 +2,9 @@
 
 namespace Niko\ApiInfo;
 
-
 use PHPUnit\Framework\TestCase;
 
-class apiInfoTest extends TestCase
+class ApiInfoTest extends TestCase
 {
     /**
      * SetUp the class for the testcases
