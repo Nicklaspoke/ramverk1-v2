@@ -12,7 +12,7 @@ class WeatherController implements ContainerInjectableInterface
     public function initialize() : void
     {
         $this->title = "Weather Service";
-        $this->weatherService = new WeatherService;
+        $this->weatherService = new WeatherService();
     }
 
     public function indexActionGet()
@@ -32,5 +32,20 @@ class WeatherController implements ContainerInjectableInterface
 
         $input = $this->di->get("request")->getPost("input");
         $option = $this->di->get("request")->getPost("timeMachine");
+        $apiInfo = $this->di->get("apiInfo");
+
+        $weatherData = $this->weatherService->getWeatherData($input, $option, $apiInfo);
+        if ($weatherData === false) {
+            $data["message"] = "Invalid ip, no geolocation for provided ip or invalid lat and lon";
+        } else {
+            $data["weatherData"] = $weatherData;
+        }
+
+        $page = $this->di->get("page");
+        $page->add("weather-service/index", $data);
+
+        return $page->render([
+            "title" => $this->title
+        ]);
     }
 }

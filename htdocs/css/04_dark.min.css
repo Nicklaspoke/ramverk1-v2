@@ -26,6 +26,7 @@ table {
     border: 1px solid #6cbac4;
     padding: 0.5em;
     margin: auto;
+    width: 100%;
 }
 
 tr.first {
