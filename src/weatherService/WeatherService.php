@@ -39,9 +39,15 @@ class WeatherService
 
         if ($option === "forecast") {
             $data = $this->getForecast($geodata, $apiInfo->getApiKey("darkSky"));
+            if (isset($data["code"]) && $data["code"] == 400) {
+                return false;
+            }
             $data = $this->formatForecastData($data);
         } elseif ($option === "previous") {
             $data = $this->getPrevipusWeather($geodata, $apiInfo->getApiKey("darkSky"));
+            if (isset($data["code"]) && $data["code"] == 400) {
+                return false;
+            }
             $data = $this->formatHistoricalData($data);
             // var_dump($data);
         }
