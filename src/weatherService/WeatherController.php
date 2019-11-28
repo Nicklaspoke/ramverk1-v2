@@ -38,7 +38,9 @@ class WeatherController implements ContainerInjectableInterface
         if ($weatherData === false) {
             $data["message"] = "Invalid ip, no geolocation for provided ip or invalid lat and lon";
         } else {
-            $data["weatherData"] = $weatherData;
+            $data["weatherData"] = $weatherData["weatherData"];
+            $data["mapCoords"] = $weatherData["mapCoords"];
+            $data["geoData"] = $weatherData["geoData"];
         }
 
         $page = $this->di->get("page");

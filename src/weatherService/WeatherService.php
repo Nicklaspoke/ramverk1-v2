@@ -21,6 +21,7 @@ class WeatherService
     public function getWeatherData($input, $option, $apiInfo)
     {
         $geodata = [];
+        $data = [];
 
         if (strpos($input, ",") !== false) {
             $res = explode(",", $input);
@@ -38,18 +39,21 @@ class WeatherService
         }
 
         if ($option === "forecast") {
-            $data = $this->getForecast($geodata, $apiInfo->getApiKey("darkSky"));
-            if (isset($data["code"]) && $data["code"] == 400) {
+            $res = $this->getForecast($geodata, $apiInfo->getApiKey("darkSky"));
+            if (isset($res["code"]) && $res["code"] == 400) {
                 return false;
             }
-            $data = $this->formatForecastData($data);
+            $data["weatherData"] = $this->formatForecastData($res);
+            $data["mapCoords"] = $this->getMapData($geodata);
+            $data["geoData"] = $geodata;
         } elseif ($option === "previous") {
-            $data = $this->getPrevipusWeather($geodata, $apiInfo->getApiKey("darkSky"));
-            if (isset($data["code"]) && $data["code"] == 400) {
+            $res = $this->getPrevipusWeather($geodata, $apiInfo->getApiKey("darkSky"));
+            if (isset($res["code"]) && $res["code"] == 400) {
                 return false;
             }
-            $data = $this->formatHistoricalData($data);
-            // var_dump($data);
+            $data["weatherData"] = $this->formatHistoricalData($res);
+            $data["mapCoords"] = $this->getMapData($geodata);
+            $data["geoData"] = $geodata;
         }
 
 
@@ -164,5 +168,13 @@ class WeatherService
         }
 
         return $data;
+    }
+
+    public function getMapData($geodata) {
+        $possistions = [];
+        $possistions["bottomRight"] = strval(floatval($geodata["lon"]) - 0.5) . "%2c" . strval(floatval($geodata["lat"]) - 0.5);
+        $possistions["topLeft"] = strval(floatval($geodata["lon"]) + 0.5) . "%2c" . strval(floatval($geodata["lat"]) + 0.5);
+
+        return $possistions;
     }
 }

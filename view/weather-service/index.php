@@ -20,8 +20,8 @@
     </div>
 
 <?php elseif (!empty($weatherData)): ?>
-
-<table>
+    <iframe width="60%" height="30%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://www.openstreetmap.org/export/embed.html?bbox=<?=$mapCoords["bottomRight"]?>%2C<?=$mapCoords["topLeft"]?>&amp;layer=mapnik&amp;marker=<?= $geoData["lat"]?>%2C<?= $geoData["lon"]?>" style="border: 1px solid black"></iframe><br/><small><a href="https://www.openstreetmap.org/#map=8/<?=$geoData["lat"]?>/<?=$geoData["lon"]?>">View Larger Map</a></small>
+    <table>
     <tr>
         <th>Day</th>
         <th>Summary</th>
