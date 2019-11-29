@@ -2,7 +2,7 @@
 <br>
 <h1>Ip Validation</h1>
 
-<h2>Hard coded testlinks for JSON</h2>
+<h2>Hard coded testlinks for the JSON API</h2>
 
 <table>
     <tr>
