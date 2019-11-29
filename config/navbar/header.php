@@ -98,5 +98,10 @@ return [
             "url" => "weather-json",
             "title" => "Weather Location Service JSON API",
         ],
+        [
+            "text" => "JSON API Documentaion",
+            "url" => "JSON-API-Documentation",
+            "title" => "JSON API Documentaion",
+        ],
     ],
 ];
