@@ -85,7 +85,7 @@ return [
             "title" => "Validate Ip Addresses",
         ],
         [
-            "text" => "JSON API",
+            "text" => "Ip Validation JSON API",
             "url" => "validate-ip-json",
             "title" => "Validate Ip Addresses With JSON",
         ],

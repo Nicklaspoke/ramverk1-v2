@@ -84,14 +84,19 @@ return [
             "title" => "Validate Ip Addresses",
         ],
         [
-            "text" => "JSON API",
+            "text" => "Ip Validation JSON API",
             "url" => "validate-ip-json",
             "title" => "Validate Ip Addresses With JSON",
         ],
         [
             "text" => "Weather Service",
-            "url" => "weather",
+            "url" => "weather-web",
             "title" => "Weather Location Service",
+        ],
+        [
+            "text" => "Weather Service JSON API",
+            "url" => "weather-json",
+            "title" => "Weather Location Service JSON API",
         ],
     ],
 ];

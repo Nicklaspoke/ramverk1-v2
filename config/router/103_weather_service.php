@@ -6,7 +6,7 @@ return [
     "routes" => [
         [
             "info" => "controller for Weather forecast service",
-            "mount" => "weather",
+            "mount" => "weather-web",
             "handler" => "\Niko\WeatherService\WeatherController",
         ]
     ]
