@@ -45,4 +45,5 @@ class WeatherJSONController implements ContainerInjectableInterface
 
         return [$json];
     }
+
 }

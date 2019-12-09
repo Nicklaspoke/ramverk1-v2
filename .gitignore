@@ -7,3 +7,5 @@ composer.lock
 src/IpValidation/apiKey.php
 
 config/apiKeys.php
+
+test/cache/
