@@ -55,6 +55,7 @@ return [
                         "url" => "redovisning/kmom10",
                         "title" => "Redovisning för kmom07-10.",
                     ],
+
                 ],
             ],
         ],
@@ -102,6 +103,11 @@ return [
             "text" => "JSON API Documentaion",
             "url" => "JSON-API-Documentation",
             "title" => "JSON API Documentaion",
+        ],
+        [
+            "text" => "Books",
+            "url" => "book",
+            "title" => "Book database",
         ],
     ],
 ];

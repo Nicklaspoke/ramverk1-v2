@@ -58,7 +58,7 @@ class UpdateForm extends FormModel
                     "value" => $book->genere,
                 ],
 
-                "genere" => [
+                "image_link" => [
                     "type" => "text",
                     "validation" => ["not_empty"],
                     "value" => $book->image_link,
