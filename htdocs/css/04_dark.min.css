@@ -72,3 +72,9 @@ a.link {
     background-color: #666;
     width: 30%;
 }
+
+.book-thumb {
+    max-width: 10em;
+    max-height: 10em;
+
+}
