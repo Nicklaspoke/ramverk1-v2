@@ -9,3 +9,7 @@ src/IpValidation/apiKey.php
 config/apiKeys.php
 
 test/cache/
+
+#Ignore the database in the data folder
+data/db.sqlite
+config/database.php
